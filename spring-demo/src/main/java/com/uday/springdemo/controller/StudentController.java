@@ -20,8 +20,12 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public StudentModel getStudentById(@PathVariable Integer studentId){
-        return  studentService.getStudentById(studentId);
+    public StudentModel getStudentById(@PathVariable Integer studentId) throws NoSuchFieldException {
+        StudentModel student =  studentService.getStudentById(studentId);
+        if(student == null){
+            throw new NoSuchFieldException("Student with that id don't exist");
+        }
+        return student;
     }
 
     @PostMapping("/")
